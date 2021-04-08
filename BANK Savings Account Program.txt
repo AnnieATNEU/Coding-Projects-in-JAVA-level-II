@@ -1,0 +1,92 @@
+ // Exercise 8.6 Solution: SavingAccount
+// BANK SavingAccount class definition
+
+ public class SavingAccount
+ {
+ // interest rate for all accounts
+ private static double annualInterestRate = 0;
+
+ private double savingsBalance; // balance for currrent account
+ // constructor, creates a new account with the specified balance
+public SavingAccount( double balance )
+{
+savingsBalance = balance;
+} // end constructor
+
+// get monthly interest
+public void calculateMonthlyInterest()
+{
+savingsBalance += savingsBalance * ( annualInterestRate / 12.0 );
+} // end method calculateMonthlyInterest
+// modify interest rate
+public static void modifyInterestRate( double newRate )
+{
+annualInterestRate =
+( newRate >= 0 && newRate <= 1.0 ) ? newRate : 0.04;
+} // end method modifyInterestRate
+// get string representation of SavingAccount
+public String toString()
+{
+return String.format( "$%.2f", savingsBalance );
+} // end method toSavingAccountString
+} // end class SavingAccount
+//===================================================================
+//Main Class
+
+
+public class SavingAccountTest
+{
+public static void main( String args[] )
+{
+SavingAccount saver1 = new SavingAccount( 2000 );
+SavingAccount saver2 = new SavingAccount( 3000 );
+SavingAccount.modifyInterestRate( 0.04 );
+System.out.println( "Monthly balances for one year at .04" );
+System.out.println( "Balances:" );
+System.out.printf( "%20s%10s\n", "Saver 1", "Saver 2" );
+System.out.printf( "%-10s%10s%10s\n", "Base",
+saver1.toString(), saver2.toString() );
+for ( int month = 1; month <= 12; month++ )
+{
+String monthLabel = String.format( "Month %d:", month );
+saver1.calculateMonthlyInterest();
+saver2.calculateMonthlyInterest();
+
+System.out.printf( "%-10s%10s%10s\n", monthLabel,
+saver1.toString(), saver2.toString() );
+} // end for
+
+SavingAccount.modifyInterestRate( .05 );
+saver1.calculateMonthlyInterest();
+saver2.calculateMonthlyInterest();
+System.out.println( "\nAfter setting interest rate to .05" );
+System.out.println( "Balances:" );
+System.out.printf( "%-10s%10s\n", "Saver 1", "Saver 2" );
+System.out.printf( "%-10s%10s\n",
+saver1.toString(), saver2.toString() );
+} // end main
+} // end class SavingAccountTest
+
+/* Output=
+Monthly balances for one year at .04
+Balances:
+Saver 1 Saver 2
+Base $2000.00 $3000.00
+Month 1: $2006.67 $3010.00
+Month 2: $2013.36 $3020.03
+Month 3: $2020.07 $3030.10
+Month 4: $2026.80 $3040.20
+Month 5: $2033.56 $3050.33
+Month 6: $2040.33 $3060.50
+Month 7: $2047.14 $3070.70
+Month 8: $2053.96 $3080.94
+Month 9: $2060.81 $3091.21
+Month 10: $2067.68 $3101.51
+Month 11: $2074.57 $3111.85
+Month 12: $2081.48 $3122.22
+After setting interest rate to .05
+Balances:
+Saver 1 Saver 2
+$2090.16 $3135.23
+
+*/

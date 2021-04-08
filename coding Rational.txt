@@ -1,0 +1,229 @@
+package rational; //Method class , main class and example output are below
+
+public class Rational {
+	
+	 private int numerator; // numerator of the fraction
+	 private int denominator; // denominator of the fraction
+	
+	 // no-argument constructor
+	 public Rational()
+	 {
+		 numerator = 1;
+		 denominator = 1;
+	 }	
+	 //argument constructor
+	 public Rational( int theNumerator, int theDenominator )
+	 {
+	 numerator = theNumerator;
+	 denominator = theDenominator;
+	 reduce();
+	 } 
+//=============================================================	
+	 // add two Rational numbers
+ public Rational sum( Rational A1 )
+	 {
+		 int resultDenominator = denominator * A1.denominator;
+		 int resultNumerator = numerator * A1.denominator +
+				 A1.numerator * denominator;
+	return new Rational( resultNumerator, resultDenominator );
+	 }
+//=============================================================	
+	 // subtract two Rational numbers
+	 public Rational subtract( Rational B1 )
+	 {
+	 int resultDenominator = denominator * B1.denominator;
+	 int resultNumerator = numerator * B1.denominator -
+			 B1.numerator * denominator;
+	 return new Rational( resultNumerator, resultDenominator );
+	 } 
+//=============================================================		 
+	 // multiply two Rational numbers
+	 public Rational multiply( Rational C1 )
+	 {
+	 return new Rational( numerator * C1.numerator,
+	 denominator * C1.denominator );
+	 } 
+//=============================================================		 
+	 // divide two Rational numbers
+		 public Rational divide( Rational D1 )
+	 {
+		 return new Rational( numerator * D1.denominator,
+		 denominator * D1.numerator );
+		 }
+//=============================================================		 
+	 // reduce the fraction
+	 private void reduce()
+	 {
+	 int gcd = 0;
+	 int smaller;
+	
+	 // find the greatest common denominator of the two numbers
+	 if ( numerator < denominator )
+	    smaller = numerator;
+	 else
+	    smaller = denominator;
+	
+	 for ( int divisor = smaller; divisor >= 2; divisor-- )
+	 {
+	   if ( numerator % divisor == 0 && denominator % divisor == 0 )
+	 {
+	      gcd = divisor;
+	     break;
+	 } 
+	 } 
+	   // divide both the numerator and denominator by the gcd
+	 if ( gcd != 0 ) 
+	   {
+		 numerator /= gcd;
+		 denominator /= gcd;
+	    } 
+	 } 
+//=============================================================		 
+	 // return String representation of a Rational number
+	 public String toString()
+	 {
+	      return numerator + "/" + denominator;
+	 } 
+//=============================================================		 
+	// return floating-point String representation of a Rational number
+	 public String toFloatString( int digits )
+	 {
+	 double value = ( double ) numerator / denominator;
+	 // builds a formatting string that specifies the precision
+	 // based on the digits parameter
+	 return String.format( "%." + digits + "f", value );
+	 }
+}
+	
+///====================================================================================
+//=======================================================================================
+package rational;
+import java.util.Scanner;
+public class Main {
+	
+	 public static void main( String args[] )
+	 {
+	 Scanner input = new Scanner( System.in );
+	
+	 int numerator; 
+	 int denominator; 
+	 int digits; // digits to display in floating point format
+	 Rational rational1; //  first rational number
+	 Rational rational2; // second rational number
+	 Rational result; // result of performing an operation
+	
+	 // read first fraction
+	 System.out.print( "Please Enter the numerator 1: " );
+	 numerator = input.nextInt();
+	 System.out.print( "Please Enter the denominator 1: " );
+	 denominator = input.nextInt();
+	 rational1 = new Rational( numerator, denominator );
+	
+	 // read second fraction
+	 System.out.print( "Please Enter the numerator 2: " );
+	 numerator = input.nextInt();
+	 System.out.print( "Please Enter the denominator 2: " );
+	 denominator = input.nextInt();
+	 rational2 = new Rational( numerator, denominator );
+	 System.out.print( "Please Enter the precision: " );
+	 digits = input.nextInt();
+	
+	 int choice = getMenuChoice(); // user's choice in the menu
+	 while ( choice != 5 )
+	    {
+	    switch ( choice )
+	    {
+		 case 1:
+		 result = rational1.sum( rational2 );
+		 System.out.printf( "a + b = %s = %s\n",
+		 result.toString(),
+		 result.toFloatString( digits ) );
+		 break;
+		
+		 case 2:
+		 result = rational1.subtract( rational2 );
+		 System.out.printf( "a - b = %s = %s\n",
+		 result.toString(),
+		 result.toFloatString( digits ) );
+		 break;
+		
+		 case 3:
+		 result = rational1.multiply( rational2 );
+		 System.out.printf( "a * b = %s = %s\n",
+		 result.toString(),
+		 result.toFloatString( digits ) );
+		 break;
+		
+		 case 4:
+		 result = rational1.divide( rational2 );
+		 System.out.printf( "a / b = %s = %s\n",
+		 result.toString(),
+		 result.toFloatString( digits ) );
+		 break;
+	 } // end switch
+	
+	 choice = getMenuChoice(); // this is from the switch method below
+	 }
+	 }
+	 // prints a menu and returns a value corresponding to the menu choice
+	 private static int getMenuChoice()
+	 {
+	 Scanner input = new Scanner( System.in );
+	
+	 System.out.println( "1. Add" );
+	 System.out.println( "2. Subtract" );
+	 System.out.println( "3. Multiply" );
+	 System.out.println( "4. Divide" );
+	 System.out.println( "5. Exit" );
+	 System.out.print( "Please Choose from the Options: " );
+
+		 return input.nextInt();
+	 }
+	}
+/*Output example:
+Please Enter the numerator 1: 16
+Please Enter the denominator 1: 4
+Please Enter the numerator 2: 15
+Please Enter the denominator 2: 5
+Please Enter the precision: 5
+1. Add
+2. Subtract
+3. Multiply
+4. Divide
+5. Exit
+Please Choose from the Options: 1
+a + b = 7/1 = 7.00000
+1. Add
+2. Subtract
+3. Multiply
+4. Divide
+5. Exit
+Please Choose from the Options: 2
+a - b = 1/1 = 1.00000
+1. Add
+2. Subtract
+3. Multiply
+4. Divide
+5. Exit
+Please Choose from the Options: 3
+a * b = 12/1 = 12.00000
+1. Add
+2. Subtract
+3. Multiply
+4. Divide
+5. Exit
+Please Choose from the Options: 4
+a / b = 4/3 = 1.33333
+1. Add
+2. Subtract
+3. Multiply
+4. Divide
+5. Exit
+Please Choose from the Options: 5
+*/
+
+
+
+
+
+	

@@ -1,0 +1,503 @@
+package Airline;
+import java.io.IOException;
+
+public class TestClass {
+
+	public static void main(String[] args) throws IOException {
+		Reservation obj1 = new Reservation();
+		obj1.FlightMenu();
+
+	}
+
+}
+=================================================================
+package Airline;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
+public class Reservation {
+
+	private static FlightStatus obj1 = new FlightStatus();
+	private static SeatingChart obj2 = new SeatingChart();
+	public static String yesorno, search, again, AssignedSeat ;
+	public static int z = 0; static int print = 1; static int r = 1; static int end = 0; static int y = 1; static int airport = 0;
+	protected static int[] available = new int[40];
+	protected static int[][] NumofPassenger = new int[100][4]; // 2D array -20row each destination , column 4
+	public static String[][] PassengerandDestinationArray = new String[20][4]; // PassengerandDestination 2D row100 ,														
+	private static double[][] fareArray = new double[100][4]; // Fare row 100 , column 4
+	private static double[] pay = new double[20];
+	private static double[] change = new double[20];
+    private static DecimalFormat df2 = new DecimalFormat("#.##"); // to round change to 2 decimal places
+	protected static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+
+//========================================================================================
+	public static void FlightMenu() throws IOException {
+
+		for (int i = 1; i <= 5; i++) { // for loop for storing the seat
+			available[i] = 40;      //"available[]" is the array for the seat availability,it store 40 seats every 1-5 destination						
+		}
+
+		for (int i = 1; i < 4;) { // 3 CHANCES TO ENTER RIGHT LOG-IN OTHERWISE WILL HALT
+			obj1.Welcomepage();
+			System.out.print("Enter Username: ");
+			String user = in.readLine();
+			System.out.print("Enter Password: ");
+			String password = in.readLine();
+			if (user.equalsIgnoreCase("Annie") && (password.equals("1234"))) { // if user and password are correct proceed to MAIN MENU	
+				conditionsAndloops(); // calling the other method here
+				i = 4;} // after login is correct ,i is initialized 4 so the loop in the login will stop
+			 else { 
+				System.out.println("\nInvalid user or password!\n"); // loop goes on again until user log-in is correct
+       		i++; 
+			}
+		}
+	}
+	
+	
+	
+//==========================================================================================
+	public static void conditionsAndloops() throws IOException {
+
+		for (int x = 1; x == 1;) {
+			obj1.MainMenu(); // from FlightStatus class
+			for (x = 1; x == 1;) { // nested loop
+				System.out.print("Please enter your choice : ");
+				String choice = in.readLine();
+
+				// if CHOICE is "1" display the DESTINATION//
+/* ====Choice1========= */if (choice.equals("1")) {
+					obj1.displayFlightinfo();// from FlightStatus class
+					x = 0; 
+					}
+
+				// if CHOICE is "2" proceed to Ticket Booking//
+/* ====Choice2======= */ else if (choice.equals("2")) {
+					obj1.displayFlightinfo();
+              		// available is the flightseat available every destination
+					if ((available[1] == 0) && (available[2] == 0) && (available[3] == 0) && (available[4] == 0)
+							&& (available[5] == 0)) {
+						System.out.println("Sorry, We don't  have available seats for all Destinations!");
+						x = 0; }
+					// when seat is availabe in flight it will continue here
+					else {
+						for (x = 1; x == 1;) {
+							System.out.print("ENTER PASSENGER'S NAME: ");
+							PassengerandDestinationArray[z][0] = in.readLine(); 
+						x = 0;
+							// if Passenger's Name already used, display error and go back to Inputing//
+							for (int l = 0; l < z; l++) { // int z is equals 0 which is inside the 2D Array named
+															// PassengerandDestinationArray
+								if (PassengerandDestinationArray[l][0].equalsIgnoreCase(PassengerandDestinationArray[z][0])) {
+									System.out.println("Sorry, Passenger's name have already used!");
+									x = 1; // so it will go back to the loop
+								}
+							}
+						}
+
+						// inputing of Destination//integers Only [1-5]
+					     	for (x = 1; x == 1;) {
+							System.out.print("ENTER DESTINATION [NUMBER]: ");
+							airport = Integer.parseInt(in.readLine());
+							// Parses the string argument as a signed decimal integer.
+							if (airport < 1 || airport > 5) {
+								System.out.println("Invalid Input!");
+								x = 1; // RETURN TO THIS SMALL LOOP
+							}
+								for (int d = 1; d <= 5; d++) { // if available seat is equal to "Zero", display error and go back to Input
+								if (airport == d) {
+									if (available[airport] == 0) { //no available seat all destination
+										System.out.println("Sorry, We don't have available seat!");
+										x = 1;
+									}
+									x = 0;
+									System.out.print("ENTER FLIGHT CLASS [ECONOMY or FIRSTCLASS] : ");
+									String seattype = in.readLine();
+									System.out.print("ROUNDTRIP OR ONEWAY: ");
+									String way = in.readLine();
+									//  Array of Strings paired with Double array to convert the Array of destination to its Double ticket price
+									// ========== ECONOMY FARE ONEWAY
+									String dest1[] = { " ",
+											"ARIZONA - (PHX)\nFLIGHT NO: WEST-AIRLINE FLIGHT WA345 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL ARIZONA(PHX)    \nFLIGHT DEPARTURE TIME: 8:30AM - ARRIVAL TIME: 2:30PM **ON TIME** \nFLIGHT SEAT CLASS: ECONOMY   \n-----------------------ONEWAY-TRIP------------------------------",
+											"LOS ANGELES - (LAX)\nFLIGHT NO: WEST-AIRLINE FLIGHT WA881 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL LOS ANGELES(LAX)\nFLIGHT DEPARTURE TIME: 9:50AM - ARRIVAL TIME: 2:15PM **ON TIME**  \nFLIGHT SEAT CLASS: ECONOMY \n-----------------------ONEWAY-TRIP------------------------------",
+											"MIAMI - (MIA)\nFLIGHT NO: WEST-AIRLINE FLIGHT WA235 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL MIAMI(MIA)      \nFLIGHT DEPARTURE TIME: 3:50PM - ARRIVAL TIME: 8:05PM **ON TIME**  \nFLIGHT SEAT CLASS: ECONOMY \n-----------------------ONEWAY-TRIP------------------------------",
+											"NEW YORK - (JFK)\nFLIGHT NO: WEST-AIRLINE FLIGHT WA715 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL NEW YORK(JFK)   \nFLIGHT DEPARTURE TIME: 01:00PM - ARRIVAL TIME: 2:30PM **ON TIME** \nFLIGHT SEAT CLASS: ECONOMY  \n-----------------------ONEWAY-TRIP------------------------------",
+											"TEXAS - (IAH)\nFLIGHT NO: WEST-AIRLINE FLIGHT WA142 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL TEXAS(IAH)      \nFLIGHT DEPARTURE TIME: 6:20PM - ARRIVAL TIME: 10:00PM **ON TIME** \nFLIGHT SEAT CLASS: ECONOMY \n-----------------------ONEWAY-TRIP------------------------------" };
+									double fare1[] = { 0, 313, 343, 114, 99, 265 };
+									// ========== FIRSTCLASS FARE ONEWAY
+									String dest2[] = { " ",
+											"ARIZONA - (PHX)\nFLIGHT NO: WEST-AIRLINE FLIGHT WA345 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL ARIZONA(PHX)    \nFLIGHT DEPARTURE TIME: 8:30AM - ARRIVAL TIME: 2:30PM **ON TIME**   \nFLIGHT SEAT CLASS: FIRSTCLASS \n-----------------------ONEWAY-TRIP------------------------------\"",
+											"LOS ANGELES - (LAX)\nFLIGHT NO: WEST-AIRLINE FLIGHT WA881 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL LOS ANGELES(LAX) \nFLIGHT DEPARTURE TIME: 9:50AM - ARRIVAL TIME 2:15PM **ON TIME**    \nFLIGHT SEAT CLASS: FIRSTCLASS \n-----------------------ONEWAY-TRIP------------------------------",
+											"MIAMI - (MIA)\nFLIGHT NO: WEST-AIRLINE FLIGHT WA235 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL MIAMI(MIA)       \nFLIGHT DEPARTURE TIME: 3:50PM - ARRIVAL TIME 8:05PM **ON TIME**    \nFLIGHT SEAT CLASS: FIRSTCLASS\n-----------------------ONEWAY-TRIP------------------------------",
+											"NEW YORK - (JFK)\nFLIGHT NO: WEST-AIRLINE FLIGHT WA715 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL NEW YORK(JFK)    \nFLIGHT DEPARTURE TIME: 01:00PM - ARRIVAL TIME 2:30PM **ON TIME**   \nFLIGHT SEAT CLASS: FIRSTCLASS \n-----------------------ONEWAY-TRIP------------------------------",
+											"TEXAS - (IAH)\nFLIGHT NO: WEST-AIRLINE FLIGHT WA142 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL TEXAS(IAH)        \nFLIGHT DEPARTURE TIME: 6:20PM - ARRIVAL TIME 10:00PM **ON TIME**   \nFLIGHT SEAT CLASS: FIRSTCLASS\n-----------------------ONEWAY-TRIP------------------------------" };
+									double fare2[] = { 0, 850, 940, 485, 300, 514 };
+									// ========== ECONOMY FARE ROUNDTRIP
+									String round1[] = { " ",
+											"BOSTON(BOS)- ARIZONA(PHX)\nFLIGHT NO: WEST-AIRLINE FLIGHT WA345 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL ARIZONA(PHX)    \nFLIGHT DEPARTURE TIME: 8:30AM - ARRIVAL TIME: 2:30PM **ON TIME**  \nFLIGHT SEAT CLASS: ECONOMY   \n-----------------------RETURN-FLIGHT------------------------------\nFLIGHT NO: WEST-AIRLINE FLIGHT WA510 \nFLIGHT SCHEDULED DATE: TUE 04/10/2021 \nFLIGHT ROUTE: DEPARTURE ARIZONA(PHX)- ARRIVAL BOSTON(BOS)    \nFLIGHT DEPARTURE TIME: 9:30AM - ARRIVAL TIME: 3:30PM **ON TIME**  \nFLIGHT SEAT CLASS: ECONOMY",
+											"BOSTON(BOS)- LOS ANGELES(LAX)\nFLIGHT NO: WEST-AIRLINE FLIGHT WA881 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL LOS ANGELES(LAX)\nFLIGHT DEPARTURE TIME: 9:50AM - ARRIVAL TIME: 2:15PM **ON TIME**  \nFLIGHT SEAT CLASS: ECONOMY   \n-----------------------RETURN-FLIGHT------------------------------\nFLIGHT NO: WEST-AIRLINE FLIGHT WA006 \nFLIGHT SCHEDULED DATE: TUE 04/10/2021 \nFLIGHT ROUTE: DEPARTURE LOS ANGELES(LAX)- ARRIVAL BOSTON(BOS)\nFLIGHT DEPARTURE TIME: 11:30AM - ARRIVAL TIME: 9:15PM **ON TIME** \nFLIGHT SEAT CLASS: ECONOMY",
+											"BOSTON(BOS)- MIAMI(MIA)\nFLIGHT NO: WEST-AIRLINE FLIGHT WA235 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL MIAMI(MIA)      \nFLIGHT DEPARTURE TIME: 3:50PM - ARRIVAL TIME: 8:05PM **ON TIME**  \nFLIGHT SEAT CLASS: ECONOMY   \n-----------------------RETURN-FLIGHT------------------------------\nFLIGHT NO: WEST-AIRLINE FLIGHT WA221 \nFLIGHT SCHEDULED DATE: TUE 04/10/2021 \nFLIGHT ROUTE: DEPARTURE MIAMI(MIA) - ARRIVAL BOSTON(BOS)     \nFLIGHT DEPARTURE TIME 10:50AM - ARRIVAL TIME 9:15PM **ON TIME**   \nFLIGHT SEAT CLASS: ECONOMY ",
+											"BOSTON(BOS)- NEW YORK(JFK)\nFLIGHT NO: WEST-AIRLINE FLIGHT WA715 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL NEW YORK(JFK)  \nFLIGHT DEPARTURE TIME: 01:00PM - ARRIVAL TIME: 2:30PM **ON TIME** \nFLIGHT SEAT CLASS: ECONOMY   \n-----------------------RETURN-FLIGHT------------------------------\nFLIGHT NO: WEST-AIRLINE FLIGHT WA136 \nFLIGHT SCHEDULED DATE: TUE 04/10/2021 \nFLIGHT ROUTE: DEPARTURE NEW YORK(JFK)- ARRIVAL BOSTON(BOS)   \nFLIGHT DEPARTURE TIME: 11:00AM - ARRIVAL TIME: 12:30PM **ON TIME**\nFLIGHT SEAT CLASS: ECONOMY",
+											"TEXAS - (IAH)        \nFLIGHT NO: WEST-AIRLINE FLIGHT WA142 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL TEXAS(IAH)     \nFLIGHT DEPARTURE TIME 6:20PM - ARRIVAL TIME: 10:00PM **ON TIME**   \nFLIGHT SEAT CLASS: ECONOMY  \n-----------------------RETURN-FLIGHT------------------------------\nFLIGHT NO: WEST-AIRLINE FLIGHT WA016\nFLIGHT SCHEDULED DATE: TUE 04/10/2021 \nFLIGHT ROUTE: DEPARTURE TEXAS(IAH)- ARRIVAL BOSTON(BOS)      \nFLIGHT DEPARTURE TIME: 9:30AM - ARRIVAL TIME: 3:30PM **ON TIME** \nFLIGHT SEAT CLASS: ECONOMY" };
+									double roundtripfare1[] = { 0, 600, 670, 180, 225, 351 };
+									// ========== FIRSTCLASS FARE ROUNDTRIP
+									String round2[] = { " ",
+											"BOSTON(BOS)- ARIZONA(PHX)\nFLIGHT NO: WEST-AIRLINE FLIGHT WA345 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL ARIZONA(PHX)    \nFLIGHT DEPARTURE TIME: 8:30AM - ARRIVAL TIME: 2:30PM **ON TIME**  \nFLIGHT SEAT CLASS: FIRSTCLASS \n-----------------------RETURN-FLIGHT------------------------------  \nFLIGHT NO: WEST-AIRLINE FLIGHT WA510 \nFLIGHT SCHEDULED DATE: TUE 04/10/2021 \nFLIGHT ROUTE: DEPARTURE ARIZONA(PHX)- ARRIVAL BOSTON(BOS)    \n FLIGHT DEPARTURE TIME: 9:30AM - ARRIVAL TIME: 3:30PM **ON TIME**\nFLIGHT SEAT CLASS: FIRSTCLASS",
+											"BOSTON(BOS)- LOS ANGELES(LAX)\nFLIGHT NO: WEST-AIRLINE FLIGHT WA881 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL LOS ANGELES(LAX)\nFLIGHT DEPARTURE TIME: 9:50AM - ARRIVAL TIME: 2:15PM **ON TIME**  \nFLIGHT SEAT CLASS: FIRSTCLASS \n-----------------------RETURN-FLIGHT------------------------------ \nFLIGHT NO: WEST-AIRLINE FLIGHT WA006 \nFLIGHT SCHEDULED DATE: TUE 04/10/2021 \nFLIGHT ROUTE: DEPARTURE LOS ANGELES(LAX)- ARRIVAL BOSTON(BOS)\n FLIGHT DEPARTURE TIME: 11:30AM - ARRIVAL TIME: 9:15PM **ON TIME** \nFLIGHT SEAT CLASS: FIRSTCLASS",
+											"BOSTON(BOS)- MIAMI(MIA)    \nFLIGHT NO: WEST-AIRLINE FLIGHT WA235 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL MIAMI(MIA)      \nFLIGHT DEPARTURE TIME: 3:50PM - ARRIVAL TIME: 8:05PM **ON TIME**  \nFLIGHT SEAT CLASS: FIRSTCLASS \n-----------------------RETURN-FLIGHT------------------------------  \nFLIGHT NO: WEST-AIRLINE FLIGHT WA221 \nFLIGHT SCHEDULED DATE: TUE 04/10/2021 \nFLIGHT ROUTE: DEPARTURE MIAMI(MIA) - ARRIVAL BOSTON(BOS)     \n FLIGHT DEPARTURE TIME 10:50AM - ARRIVAL TIME 9:15PM **ON TIME**   \nFLIGHT SEAT CLASS: FIRSTCLASS ",
+											"BOSTON(BOS)- NEW YORK(JFK)   \nFLIGHT NO: WEST-AIRLINE FLIGHT WA715 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL NEW YORK(JFK)  \nFLIGHT DEPARTURE TIME: 01:00PM - ARRIVAL TIME: 2:30PM **ON TIME** \nFLIGHT SEAT CLASS: FIRSTCLASS  \n-----------------------RETURN-FLIGHT------------------------------ \nFLIGHT NO: WEST-AIRLINE FLIGHT WA136 \nFLIGHT SCHEDULED DATE: TUE 04/10/2021 \nFLIGHT ROUTE: DEPARTURE NEW YORK(JFK)- ARRIVAL BOSTON(BOS)   \n FLIGHT DEPARTURE TIME: 11:00AM - ARRIVAL TIME: 12:30PM **ON TIME** \nFLIGHT SEAT CLASS: FIRSTCLASS",
+											"TEXAS - (IAH)           \nFLIGHT NO: WEST-AIRLINE FLIGHT WA142 \nFLIGHT SCHEDULED DATE: TUE 04/01/2021 \nFLIGHT ROUTE: DEPARTURE BOSTON(BOS)- ARRIVAL TEXAS(IAH)     \nFLIGHT DEPARTURE TIME 6:20PM - ARRIVAL TIME: 10:00PM **ON TIME**   \nFLIGHT SEAT CLASS: FIRSTCLASS \n-----------------------RETURN-FLIGHT------------------------------  \nFLIGHT NO: WEST-AIRLINE FLIGHT WA016\nFLIGHT SCHEDULED DATE: TUE 04/10/2021 \nFLIGHT ROUTE: DEPARTURE TEXAS(IAH)- ARRIVAL BOSTON(BOS)      \n FLIGHT DEPARTURE TIME: 9:30AM - ARRIVAL TIME: 3:30PM **ON TIME**  \nFLIGHT SEAT CLASS: FIRSTCLASS" };
+									double roundtripfare2[] = { 0, 1060, 1161, 979, 400, 525 };
+                                        //conditions made to determine which flight info customer chose and store them in array
+									if (way.equalsIgnoreCase("ROUNDTRIP")&& (seattype.equalsIgnoreCase("Firstclass"))) {
+										PassengerandDestinationArray[z][1] = round2[airport];
+										fareArray[z][0] = roundtripfare2[airport];}
+									 else if (way.equalsIgnoreCase("ROUNDTRIP")&& (seattype.equalsIgnoreCase("Economy"))) {
+										PassengerandDestinationArray[z][1] = round1[airport];
+										fareArray[z][0] = roundtripfare1[airport];}
+									 else if (way.equalsIgnoreCase("ONEWAY")&& (seattype.equalsIgnoreCase("Firstclass"))) {
+										PassengerandDestinationArray[z][1] = dest2[airport];
+										fareArray[z][0] = fare2[airport];}
+									 else if (way.equalsIgnoreCase("ONEWAY")&& (seattype.equalsIgnoreCase("Economy"))) {
+										PassengerandDestinationArray[z][1] = dest1[airport];
+										fareArray[z][0] = fare1[airport];}
+									 else {
+										System.out.println("Invalid Flight route");
+										// if Inputed integers are less than"<1" or more than ">5", display error and go
+										// back to Inputing
+										x = 0;
+									}
+								}
+							}
+						}
+
+						// inputing for Number of Passenger's//
+						for (x = 1; x == 1;) {
+							System.out.print("HOW MANY PASSENGERS ARE YOU?: ");
+							NumofPassenger[z][0] = Integer.parseInt(in.readLine()); // store the passenger in array
+
+							// subtract the available seat by the the number inputed//
+							for (int p = 1; p <= 5; p++) {
+								if (airport == p) {
+									print = 1; // available is 40
+									available[airport] = available[airport] - NumofPassenger[z][0];
+
+									// if the subtracted available seat is "<0", display error//
+									// add the inputed number to the subtracted seat, to back the original
+									// seat//
+									// display the available seat and back to the inputing//
+									if (available[airport] < 0) {
+										System.out.print("Sorry, We don't have seat available for "
+												+ NumofPassenger[z][0] + " person\n");
+										available[airport] = available[airport] + NumofPassenger[z][0];
+										System.out.print("We only have " + available[airport] + " seat available\n");
+										x = 1;
+										print = 0;
+									} else {
+										x = 0;
+									}
+								}
+							}
+
+						}
+
+						// inputing for Number of Discounted Passenger's//
+						for (x = 1; x == 1;) {
+							System.out.print("HOW MANY PASSENGERS HAVE DISCOUNT?: ");// store the passenger with
+																						// discount in array
+							NumofPassenger[z][1] = Integer.parseInt(in.readLine());
+							// if the discounted passenger is greater than number of passenger put invalid
+							// msg
+							if (NumofPassenger[z][1] > NumofPassenger[z][0]) {
+
+								System.out.println("Invalid Input!");
+								System.out.println("No. of Passengers are only " + NumofPassenger[z][0] + "!");
+								x = 1;
+							} else if  (NumofPassenger[z][1] <= NumofPassenger[z][0] && NumofPassenger[z][1]>=0 ) {
+							   
+								obj2.printSeats();
+								System.out.print("ENTER THE SEAT YOU WANT TO RESERVE [e.g,2B IF ONEWAY OR 2B-2C IF ROUNDTRIP]: ");
+								 AssignedSeat = in.readLine();
+							x=0;
+							}
+							
+							else { 
+								break;
+							}
+						}
+
+						// print out of passengers details....
+						if (print == 1) {
+							System.out.println("\n**************************************************************");
+							System.out.println("**            ** FLIGHT RESERVATION DETAILS  **             **");
+							System.out.println("**************************************************************");
+							System.out.println("PASSENGER'S NAME: " + PassengerandDestinationArray[z][0]); // z=0
+							System.out.println("PASSENGER'S DESTINATION : " + PassengerandDestinationArray[z][1]);
+							System.out.println("FARE PRICE: USD$ " + fareArray[z][0]);
+							System.out.println("PASSENGER'S SEAT RESERVED : " + AssignedSeat );
+							System.out.println("NO. OF PASSENGERS: " + NumofPassenger[z][0]);
+							System.out.println("NO. OF PASSENGERS WITH DISCOUNT: " + NumofPassenger[z][1]);
+							System.out.println("**************************************************************");
+							System.out.println("**************************************************************\n");
+							PassengerandDestinationArray[z][2] = "0"; // 20% DISCOUNT
+							double discount = (fareArray[z][0] - (fareArray[z][0] * 0.2)) * NumofPassenger[z][1]; // ,fareArray
+																													// is
+																													// the
+																													// array
+																													// of
+																													// the
+																													// fare
+							// number of passenger - number of passenger with discount
+							fareArray[z][2] = ((NumofPassenger[z][0] - NumofPassenger[z][1]) * fareArray[z][0])
+									+ discount;// 20% discount deducted
+
+							x = 0;
+						}
+						z++;
+					}
+				}
+
+/* ====Choice3========= */else if (choice.equals("3")) {
+					for (x = 1; x == 1;) {
+						System.out.print("ENTER PASSENGER'S NAME: ");
+						search = in.readLine();
+						int s = 1;
+						for (int b = 0; b < z; b++) { // b=0
+							if (search.equalsIgnoreCase(PassengerandDestinationArray[b][0])) {
+								System.out.println("\n**************************************************************");
+								System.out.println("**            ** FLIGHT RESERVATION DETAILS  **             **");
+								System.out.println("**************************************************************");
+								System.out.println("PASSENGER'S NAME: " + PassengerandDestinationArray[b][0]); // b=0
+								System.out.println("PASSENGER'S DESTINATION : " + PassengerandDestinationArray[b][1]);
+								System.out.println("FARE PRICE: USD$" + fareArray[b][0]);
+								System.out.println("PASSENGER'S SEAT RESERVED : " + AssignedSeat );
+								System.out.println("NO. OF PASSENGERS: " + NumofPassenger[b][0]);
+								System.out.println("NO. OF PASSENGERS WITH DISCOUNT: " + NumofPassenger[b][1]);
+								System.out.println("**************************************************************");
+								System.out.println("****************************************************************");
+								s = 0;
+								x = 0;
+
+								if (PassengerandDestinationArray[b][2].equals("x")) {
+									System.out.println("Passenger's Already Paid!");
+									x = 0;
+								} else {
+									PassengerandDestinationArray[b][2] = "x";
+
+									for (x = 1; x == 1;) {
+										System.out.println("\nPASSENGER'S TOTAL FARE: USD$  " + fareArray[b][2]);
+										System.out.print("ENTER AMOUNT TO PAY: ");
+										pay[b] = Double.parseDouble(in.readLine());
+										/* =========== */change[b] = pay[b] - fareArray[b][2]; // SUBTRACTION FOR CHANGE
+																								// USD$
+
+										if (change[b] < 0) {
+											System.out.println("Invalid Input!");
+											x = 1;
+										} else {
+											String changeroundOff2 = df2.format(change[b]);
+											System.out.println("CHANGE: USD$ " + changeroundOff2);
+											System.out.println("");
+											x = 0;
+										}
+									}
+								}
+							}
+						}
+						if (s == 1) {
+							System.out.println("\nPASSENGER'S NAME NOT FOUND!\n");
+							for (int q = 1; q == 1;) {
+
+								System.out.print("Do you wish to continue with this transaction? [Yes/No]: ");
+								again = in.readLine();
+
+								if (again.equalsIgnoreCase("yes")) {
+									q = 0;
+								} else if (again.equalsIgnoreCase("no")) {
+									q = 0;
+									x = 0;
+
+								} else {
+									System.out.println("\nInvalid input!\n");
+								}
+
+							}
+						}
+					}
+
+				}
+
+/*====Choice4========= */else if (choice.equals("4")) {
+
+					for (int sx = 1; sx <= 3;) {
+						System.out.print("SEARCH PASSENGER'S NAME: ");
+						search = in.readLine();
+						// TO VIEW TICKET RESERVED
+						int s = 1;
+						for (x = 0; x <= z; x++) {
+							if (search.equalsIgnoreCase(PassengerandDestinationArray[x][0])) {
+								System.out.println("\n**************************************************************");
+								System.out.println("**            ** FLIGHT RESERVATION DETAILS  **             **");
+								System.out.println("**************************************************************");
+								System.out.println("PASSENGER'S NAME: " + PassengerandDestinationArray[x][0]);
+								System.out.println("PASSENGER'S DESTINATION : " + PassengerandDestinationArray[x][1]);
+								System.out.println("FARE PRICE: USD$" + fareArray[x][0]);
+								System.out.println("PASSENGER'S SEAT RESERVED : " + AssignedSeat );
+								System.out.println("NO. OF PASSENGERS: " + NumofPassenger[x][0]);
+								System.out.println("NO. OF PASSENGERS WITH DISCOUNT: " + NumofPassenger[x][1]);
+								System.out.println("TOTAL FARE PRICE: USD$ " + fareArray[x][2]);
+								if (PassengerandDestinationArray[x][2].equals("x")) {
+									System.out.println("PAY: USD$ " + pay[x]);
+									String changeroundOff = df2.format(change[x]); //to round of change to 2 decimal places
+									System.out.println("CHANGE: USD$ " + changeroundOff);
+									System.out.println("STATUS: PAID");
+								} else {
+									System.out.println("STATUS: NOT PAID");
+								}
+								System.out.println("**************************************************************");
+								System.out.println("****************************************************************");
+								s = 0;
+								sx = 4; // to stop this loop
+							}
+						}
+
+						if (s == 1) {
+							System.out.println("Passenger's Name not found!");
+							sx++;
+						}
+
+					}
+				}
+
+/* ====Choice5========= */else if (choice.equals("5")) {
+					end = 1;
+					x = 0;
+					System.out.println("\"THANK YOU FOR CONSIDERING WEST AIRLINE FOR YOUR FLIGHT!\" SEE YOU AGAIN !"); // choice 5 exit
+				}
+
+				/* ====else=========== */else {
+					System.out.println("Invalid Input!");
+					x = 1; // return to main loop again
+				}
+			}
+			
+			// ======================================================================
+			for (y = 1; y == 1;) {
+				if (end == 1) {
+					break;
+				}
+				// the loop for main menu
+				System.out.print("Do you want to return to Main Menu? [Yes/No]: ");
+				yesorno = in.readLine();
+				if (yesorno.equalsIgnoreCase("yes")) {
+					x = 1; // to return to main menu
+					y = 0; // to exit this loop
+				} else if (yesorno.equalsIgnoreCase("no")) {
+					System.out.println("\"\nTHANK YOU FOR CONSIDERING WEST AIRLINE FOR YOUR FLIGHT! SEE YOU AGAIN !\"");
+					y = 0; // to exit
+				} else {
+					System.out.println("Invalid Input!!!");
+					y = 1; // to loop again with this loop
+				}
+			}
+		}
+
+	}
+}
+
+=================================================================
+package Airline;
+import java.io.IOException;
+
+public class SeatingChart extends Reservation{
+
+    private static final int ROW = 10;
+	private static final int SEAT = 4;
+    public void seatdisplay() {
+    }
+        
+    SeatingChart()
+    {
+    	
+    }
+
+    public static void printSeats() throws IOException {    //to show seating chart
+        System.out.println("------------------------------------------");
+		System.out.println("A B C D");
+		for (int i = 0; i < ROW; i++) {
+			System.out.println();
+			for (int j = 0; j < SEAT; j++) {
+				
+					System.out.print("_ ");
+			}
+			System.out.print((i + 1));
+		
+		}
+		System.out.print("\nCHOOSE FLIGHT SEAT LOCATION | ROW 1-5 ARE ONLY FOR FIRSTCLASS PASSENGERS");
+		System.out.println("------------------------------------------");
+		System.out.println("------------------------------------------");
+		
+        } 
+  }
+=================================================================
+package Airline;
+
+public class FlightStatus {
+
+	FlightStatus()
+	{
+		
+	}
+	
+	public void Welcomepage() {
+		System.out.println("**************************************************************************************************");
+		System.out.println("********************************** WEST-AIRLINE FLIGHT RESERVATION *******************************");
+		System.out.println("**************************************************************************************************");
+		System.out.println("**************************************************************************************************");
+		System.out.println("\n"+ "---------------------------------WELCOME!! PLEASE LOG IN :  ------------------------------**");
+	    
+	}
+//====================================================================================================
+	public void MainMenu() {
+		// the MAIN MENU//
+		System.out.println("**************************************************************************************************");
+		System.out.println("********************************** WEST-AIRLINE FLIGHT RESERVATION *******************************");
+		System.out.println("**************************************************************************************************");
+		System.out.println("**************************************************************************************************");
+		System.out.println("\n"+ "******************************** WELCOME!! PLEASE SELECT AT THE FOLLOWING MENU :   **");
+		System.out.println("**                                  [1] Destination                         		    **");
+		System.out.println("**                                  [2] Passengers                                          **");
+		System.out.println("**                                  [3] Billing                                             **");
+		System.out.println("**                                  [4] View Ticket                                         **");
+		System.out.println("**                                  [5] Exit                                                **");
+		System.out.println("**********************************************************************************************");
+		System.out.println("**********************************************************************************************");
+	}
+//====================================================================================================	
+	public void displayFlightinfo() {
+	// display the "Destination", every destination "Fare", and the "Seat"
+	// available//
+		System.out.println("**************************************************************************************************");
+		System.out.println("********************************** WEST-AIRLINE FLIGHT RESERVATION *******************************");
+		System.out.println("**************************************************************************************************");
+		System.out.println("**************************************************************************************************");
+		System.out.println("**   ATTENTION! ALL WEST-AIRLINE FLIGHTS  ONLY BOUND TO/FROM BOSTON AND  THE AIRPORTS BELOW     **");
+		System.out.println("**************************************************************************************************");
+		System.out.println("**   DESTINATION              **|      FARE & SEAT CLASSES    |  Flight Schedule  ********");
+		System.out.println("_________________________________ECONOMY_______BUSINESS CLASS_____________________________________");
+		System.out.println("                                |             |               |                                   ");
+		System.out.println("** 1.)ARIZONA    -(PHX  ) WA345 |     USD$313 | USD$850       |   04/01/2021  8:30AM  **ON TIME   ");
+		System.out.println("** 2.)LOS ANGELES-(LAX  ) WA881 |     USD$343 | USD$940       |   04/01/2021  9:50AM  **ON TIME   ");
+		System.out.println("** 3.)MIAMI      -(MIA  ) WA235 |     USD$114 | USD$485       |   04/01/2021  01:00PM **ON TIME   ");
+		System.out.println("** 4.)NEW YORK   -(JFK  ) WA715 |     USD$99  | USD$300       |   04/01/2021  3:50PM  **ON TIME   ");
+		System.out.println("** 5.)TEXAS      -(IAH  ) WA142 |     USD$265 | USD$514       |   04/01/2021  6:20PM  **ON TIME   ");
+		System.out.println("__________________________________________________________________________________________________");
+		System.out.println("************************************************************************************************\n");
+		System.out.println("**     ATTENTION! ALL WEST-AIRLINE FLIGHTS  ONLY BOUND TO/FROM BOSTON AND  THE AIRPORTS BELOW       **");
+		}
+	
+}
+
+
