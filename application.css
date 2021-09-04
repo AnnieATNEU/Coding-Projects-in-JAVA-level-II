@@ -1,0 +1,164 @@
+/*All the fx:id are from the scenebuilder , i named them then hooked it to the 
+ * application.css(done from scenebuilder)
+ */
+
+/*Signup fxml objects===================================*/
+.bpane{
+	-fx-background-color:#DCF0F7;
+	}
+	
+.signupbutton{
+	-fx-background-radius: 15.0px;
+}
+.signupbutton:hover{
+	-fx-effect: dropshadow(three-pass-box, rgb(173, 216, 230), 30.0, 0.0 , 0.0,1.0);	
+ 
+}
+/*LogIn fxml objects======================================== */
+.Loginbutton{
+	-fx-background-radius: 15.0px;	
+}
+.Loginbutton:hover{
+	-fx-effect: dropshadow(three-pass-box, rgb(173, 216, 230), 30.0, 0.0 , 0.0,1.0);	
+ 
+}
+
+.pane01{
+	-fx-background-color: #5E9DC8;
+}
+/*Account fxml objects======================================== */
+.Accountgoback{
+	-fx-background-radius: 15.0px;
+	-fx-background-color:  #93d4f1;
+}
+.Accountgoback:hover{
+	-fx-effect: dropshadow(three-pass-box, rgb(0.0,21.0,255.0), 30.0, 0.0 , 0.0,1.0);	
+}
+
+.rfe{
+	-fx-background-radius: 15.0px;
+	-fx-background-color:  #93d4f1;
+}
+.rfe:hover{
+	-fx-effect: dropshadow(three-pass-box, rgb(0.0,21.0,255.0), 30.0, 0.0 , 0.0,1.0);	
+}
+.vt{
+	-fx-background-radius: 15.0px;
+	-fx-background-color:  #93d4f1;
+}
+/*Menu fxml objects======================================== */ 
+.LOMenu{
+	-fx-background-radius: 15.0px;
+	-fx-background-color:  #1d2761;
+} 
+.LOMenu:hover{
+	-fx-effect: dropshadow(three-pass-box, rgb(0.0,21.0,255.0), 30.0, 0.0 , 0.0,1.0);	
+} 
+/*firstpage fxml objects======================================== */
+.firstpage:hover{
+	-fx-effect: dropshadow(three-pass-box, rgb(0.0,21.0,255.0), 30.0, 0.0 , 0.0,1.0);	
+}
+.panemenu{
+	-fx-background-radius: 15.0px;
+	-fx-background-color:  #214690;
+}
+.firstpage{
+	-fx-background-radius: 15.0px;
+	-fx-background-color: #30a7ea;
+}
+/*##seatbuttons*/
+.seatA{
+-fx-background-color: #87CEFA;
+-fx-background-radius: 15.0px;
+}
+
+.seatB{
+-fx-background-color: #87CEFA;
+-fx-background-radius: 15.0px;
+}
+
+.seatC{
+-fx-background-color: #87CEFA;
+-fx-background-radius: 15.0px;
+}
+
+.seatD{
+-fx-background-color: #87CEFA;
+-fx-background-radius: 15.0px;
+}
+.A:hover{
+	-fx-effect: dropshadow(three-pass-box, rgb(26,223,45), 30.0, 0.0 , 50,1.0);	
+}
+.nextseatareabuttons:hover{
+	-fx-effect: dropshadow(three-pass-box, rgb(0.0,21.0,255.0), 30.0, 0.0 , 0.0,1.0);	
+ 
+}
+.nextseatareabuttons{
+	-fx-background-radius: 15.0px;
+    -fx-background-color: #87CEFA;
+}
+
+.backseatareabuttons:hover{
+	-fx-effect: dropshadow(three-pass-box, rgb(0.0,21.0,255.0), 30.0, 0.0 , 0.0,1.0);	
+}
+
+.backseatareabuttons{
+	-fx-background-radius: 15.0px;
+    -fx-background-color: #87CEFA;
+    }
+
+.cancelseatareabuttons:hover{
+	-fx-effect: dropshadow(three-pass-box, rgb(0.0,21.0,255.0), 30.0, 0.0 , 0.0,1.0);	
+}
+.cancelseatareabuttons{
+	-fx-background-radius: 15.0px;
+    -fx-background-color: #87CEFA;
+}
+
+/*##seatbuttons this is where i put the dropshadow effect so when you hover to the button A-D it will look different*/
+.seatA:hover{
+	-fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,4.0), 5.0, 0.0 , 0.0,1.0);	
+}
+.seatB:hover{
+	-fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,4.0), 5.0, 0.0 , 0.0,1.0);	
+}
+.seatC:hover{
+	-fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,4.0), 5.0, 0.0 , 0.0,1.0);	
+}
+.seatD:hover{
+	-fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,4.0), 5.0, 0.0 , 0.0,1.0);	
+}
+/*reservation buttons===================================================== */
+.reservationnext{
+	-fx-background-radius: 15.0px;
+}
+.reservationnext:hover{
+	-fx-effect: dropshadow(three-pass-box, rgb(0.0,21.0,255.0), 30.0, 0.0 , 0.0,1.0);	
+}
+.reservationcancel{
+	-fx-background-radius: 15.0px;
+}
+.reservationcancel:hover{
+	-fx-effect: dropshadow(three-pass-box, rgb(0.0,21.0,255.0), 30.0, 0.0 , 0.0,1.0);	
+}
+
+/*ticket buttons========================================================= */
+
+.ticketanother{
+	-fx-background-radius: 15.0px;
+}
+.ticketanother:hover{
+	-fx-effect: dropshadow(three-pass-box, rgb(0.0,21.0,255.0), 30.0, 0.0 , 0.0,1.0);	
+}
+.gobackticket{
+	-fx-background-radius: 15.0px;
+}
+.gobackticket:hover{
+	-fx-effect: dropshadow(three-pass-box, rgb(0.0,21.0,255.0), 30.0, 0.0 , 0.0,1.0);	
+}
+.LOticket{
+	-fx-background-radius: 15.0px;
+}
+.LOticket:hover{
+	-fx-effect: dropshadow(three-pass-box, rgb(0.0,21.0,255.0), 30.0, 0.0 , 0.0,1.0);	
+}

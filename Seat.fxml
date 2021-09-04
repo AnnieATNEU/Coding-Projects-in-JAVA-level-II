@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="672.0" style="-fx-background-color: #DCF0F7;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SeatController">
+   <left>
+      <AnchorPane prefHeight="498.0" prefWidth="334.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="buttonAseat" layoutX="88.0" layoutY="109.0" mnemonicParsing="false" onAction="#HandleButtonASeat" prefHeight="52.0" prefWidth="150.0" styleClass="seatA" text="A" textFill="#457334">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+               <stylesheets>
+                  <URL value="@application.css" />
+                  <URL value="@application.css" />
+               </stylesheets>
+            </Button>
+            <Label layoutX="75.0" layoutY="58.0" prefHeight="41.0" prefWidth="183.0" text="Please choose your seat">
+               <font>
+                  <Font name="Century Schoolbook" size="16.0" />
+               </font>
+            </Label>
+            <Button fx:id="cancelSeatbutton" layoutX="99.0" layoutY="445.0" mnemonicParsing="false" onAction="#HandleCancelButtonSeat" prefHeight="10.0" prefWidth="83.0" styleClass="cancelseatareabuttons" stylesheets="@application.css" text="Cancel">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Button>
+            <Button fx:id="nextButtonSeat" layoutX="167.0" layoutY="397.0" mnemonicParsing="false" onAction="#HandleNextButtonSeat" prefHeight="10.0" prefWidth="83.0" style="-fx-background-color: #87CEFA;" styleClass="nextseatareabuttons" stylesheets="@application.css" text="Next &gt;&gt;">
+               <font>
+                  <Font name="System Bold Italic" size="13.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="44.0" fitWidth="82.0" layoutX="128.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/bts%20logo.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="buttonDseat" layoutX="88.0" layoutY="299.0" mnemonicParsing="false" onAction="#HandleButtonDSeat" prefHeight="52.0" prefWidth="150.0" styleClass="seatD" stylesheets="@application.css" text="D" textFill="#9e4c4c">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonCseat" layoutX="88.0" layoutY="234.0" mnemonicParsing="false" onAction="#HandleButtonCSeat" prefHeight="52.0" prefWidth="150.0" styleClass="seatC" stylesheets="@application.css" text="C" textFill="#b142b7">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonBseat" layoutX="88.0" layoutY="171.0" mnemonicParsing="false" onAction="#HandleButtonBSeat" prefHeight="52.0" prefWidth="150.0" styleClass="seatB" stylesheets="@application.css" text="B" textFill="#235bbc">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Button>
+            <Button fx:id="nextButtonSeat1" layoutX="33.0" layoutY="397.0" mnemonicParsing="false" onAction="#HandleBackButtonSeat" prefHeight="10.0" prefWidth="83.0" style="-fx-background-color: #87CEFA;" styleClass="backseatareabuttons" stylesheets="@application.css" text="&lt;&lt;Back">
+               <font>
+                  <Font name="System Bold Italic" size="13.0" />
+               </font>
+            </Button>
+            <Text fx:id="TextA" layoutX="8.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="309.6000518798828" />
+            <Text fx:id="TextB" layoutX="9.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="315.19990158081055" />
+            <Text fx:id="TextC" layoutX="10.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="311.9999465942383" />
+            <Text fx:id="TextD" layoutX="7.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="318.3999214172363" />
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <Pane prefHeight="498.0" prefWidth="672.0" style="-fx-background-color: #5E9DC8;" styleClass="pane01" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="201.0" fitWidth="307.0" layoutX="18.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/BTS%20(1).jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="166.0" fitWidth="307.0" layoutX="16.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/seat.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="141.0" layoutY="308.0" styleClass="A" stylesheets="@application.css" text="A" textFill="#457334">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="91.0" layoutY="225.0" styleClass="C" stylesheets="@application.css" text="C" textFill="#b142b7">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="95.0" layoutY="357.0" styleClass="D" stylesheets="@application.css" text="D" textFill="#9e4c4c">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="294.0" layoutY="308.0" styleClass="B" stylesheets="@application.css" text="B" textFill="#235bbc">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="116.0" layoutY="294.0" text="Event Area" textFill="#300d33">
+               <font>
+                  <Font name="Century Schoolbook Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </right>
+</BorderPane>

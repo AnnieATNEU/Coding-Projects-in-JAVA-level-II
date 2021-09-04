@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="672.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ViewTicketController">
+   <children>
+      <Pane layoutX="266.0" layoutY="22.0" prefHeight="422.0" prefWidth="334.0">
+         <children>
+            <ImageView fitHeight="365.0" fitWidth="320.0" layoutX="14.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/7u.png" />
+               </image>
+            </ImageView>
+            <TextArea editable="false" layoutX="26.0" layoutY="55.0" prefHeight="205.0" prefWidth="255.0" text="&#10;&#10;&#10;Name :&#10;&#10;Pax:&#10;&#10;Seat :&#10; &#10;Date &amp; venue :&#10;&#10;Payment : To be paid at the event">
+               <font>
+                  <Font name="Century Schoolbook Bold" size="12.0" />
+               </font>
+            </TextArea>
+            <Label contentDisplay="CENTER" layoutX="85.0" layoutY="48.0" prefHeight="47.0" prefWidth="363.0" text="Ticket Reserved" textFill="#134dec" underline="true">
+               <font>
+                  <Font name="Century Schoolbook" size="16.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="79.0" layoutY="244.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/qr.png" />
+               </image>
+            </ImageView>
+            <Label contentDisplay="CENTER" layoutX="68.0" layoutY="385.0" prefHeight="37.0" prefWidth="352.0" text="Scan QR code on the event" textFill="#020a1e">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="28.0" layoutY="23.0" prefHeight="451.0" prefWidth="200.0" style="-fx-background-color: #333399;">
+         <children>
+            <Button fx:id="gobackviewtickets" layoutX="22.0" layoutY="262.0" mnemonicParsing="false" onAction="#Handlegobackviewtickets" style="-fx-background-color: #FFFFFF;" styleClass="gobackticket" stylesheets="@application.css" text="&lt;&lt;Go back to main Menu" textFill="#3b19fc" />
+            <Button fx:id="logoutviewtickets" layoutX="70.0" layoutY="362.0" mnemonicParsing="false" onAction="#Handlelogoutviewtickets" styleClass="LOticket" stylesheets="@application.css" text="Log Out" textFill="#3b19fc" />
+            <ImageView fitHeight="150.0" fitWidth="188.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/th.gif" />
+               </image>
+            </ImageView>
+            <Label layoutX="32.0" layoutY="14.0" prefHeight="17.0" prefWidth="194.0" text="BEEII EVENTS BOOKING" textFill="#d2fae7">
+               <font>
+                  <Font name="Georgia" size="12.0" />
+               </font>
+            </Label>
+            <Button fx:id="reserveanother" layoutX="22.0" layoutY="213.0" mnemonicParsing="false" onAction="#Handlereserveanother" style="-fx-background-color: #FFFFFF;" styleClass="ticketanother" stylesheets="@application.css" text="&lt;&lt; Reserve another ticket" textFill="#3b19fc" />
+         </children>
+      </Pane>
+      <Pane layoutX="236.0" layoutY="23.0" prefHeight="451.0" prefWidth="16.0" style="-fx-background-color: #3399FF;" />
+      <Pane layoutX="236.0" layoutY="468.0" prefHeight="16.0" prefWidth="422.0" style="-fx-background-color: #3399FF;" />
+      <Pane layoutX="28.0" layoutY="479.0" prefHeight="8.0" prefWidth="200.0" style="-fx-background-color: #3399FF;" />
+      <Pane layoutX="236.0" layoutY="15.0" prefHeight="16.0" prefWidth="421.0" style="-fx-background-color: #3399FF;" />
+      <Pane layoutX="642.0" layoutY="31.0" prefHeight="451.0" prefWidth="16.0" style="-fx-background-color: #3399FF;" />
+      <Pane layoutX="28.0" layoutY="11.0" prefHeight="8.0" prefWidth="200.0" style="-fx-background-color: #3399FF;" />
+   </children>
+</AnchorPane>
